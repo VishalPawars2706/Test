@@ -26,17 +26,25 @@ margin-top:20px;
 }
 
 .slideshow {
-width:90%;
-max-width:350px;
-margin:20px auto;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
+    width: 90%;
+    max-width: 350px;
+    height: 450px;              /* FIXED HEIGHT */
+    margin: 20px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    position: relative;
 }
 
+
 .slideshow img {
-width:100%;
-display:none;
+    width: 100%;
+    height: 100%;               /* Fill the frame */
+    object-fit: cover;          /* Crop nicely like Instagram */
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
 }
 
 button {
@@ -101,7 +109,6 @@ Will you be my Valentine?<br>
 <img src="photo4.jpeg" class="slide">
 <img src="photo5.jpeg" class="slide">
 <img src="photo6.jpeg" class="slide">
-<img src="photo7.jpeg" class="slide">
 <img src="photo8.jpeg" class="slide">
 <img src="photo9.jpeg" class="slide">
 <img src="photo10.jpeg" class="slide">
