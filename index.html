@@ -4,118 +4,145 @@
 <title>Keerthana ❤️ Vishal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
 <style>
-body {
+*{
 margin:0;
-font-family: 'Segoe UI', sans-serif;
-background: url("photo7.jpeg") no-repeat center center fixed;
-background-size: cover;
-overflow:hidden;
-text-align:center;
-color:white;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
-/* Light dark overlay ONLY for text visibility */
-body::after{
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+background:url("Photo7.jpeg") center/cover no-repeat;
+}
+
+body::before{
 content:"";
-position:fixed;
-top:0;
-left:0;
+position:absolute;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.3);
-z-index:-1;
+backdrop-filter: blur(8px);
+background:rgba(0,0,0,0.5);
+z-index:0;
 }
 
-.container {
+.container{
 position:relative;
 z-index:2;
-padding:20px;
+width:90%;
+max-width:420px;
+padding:30px;
+border-radius:25px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+box-shadow:0 20px 60px rgba(0,0,0,0.6);
+text-align:center;
+animation:fadeIn 2s ease forwards;
+opacity:0;
 }
 
-h1 {
-font-size:28px;
-margin-top:20px;
-text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+@keyframes fadeIn{
+to{opacity:1;}
 }
 
-/* FIXED SLIDESHOW FRAME */
-.slideshow {
-width: 90%;
-max-width: 350px;
-height: 350px;
-margin: 20px auto;
-border-radius: 20px;
-overflow: hidden;
-box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-position: relative;
-background: black;
+h1{
+font-size:24px;
+font-weight:600;
+margin-bottom:20px;
+text-shadow:0 4px 15px rgba(0,0,0,0.8);
 }
 
-.slideshow img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-position: absolute;
-top: 0;
-left: 0;
-display: none;
+.slideshow{
+width:100%;
+height:400px;
+border-radius:20px;
+overflow:hidden;
+position:relative;
+margin-bottom:20px;
 }
 
-/* Buttons */
-button {
-padding:15px 35px;
-font-size:18px;
-border:none;
-border-radius:50px;
-cursor:pointer;
-margin:10px;
-transition:0.3s;
-}
-
-#yesBtn {
-background:#ff4081;
-color:white;
-}
-
-#noBtn {
-background:#ddd;
+.slideshow img{
+width:100%;
+height:100%;
+object-fit:cover;
 position:absolute;
-color:black;
+top:0;
+left:0;
+opacity:0;
+transition:opacity 1.5s ease;
+animation:zoom 8s ease-in-out infinite alternate;
 }
 
-.funnyText {
-font-size:13px;
+@keyframes zoom{
+from{transform:scale(1);}
+to{transform:scale(1.08);}
+}
+
+.buttons{
+display:flex;
+justify-content:center;
+gap:15px;
 margin-top:10px;
 }
 
-/* Floating Hearts */
-.heart {
+button{
+padding:12px 28px;
+border:none;
+border-radius:50px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+#yesBtn{
+background:linear-gradient(45deg,#ff007f,#ff4da6);
+color:white;
+box-shadow:0 0 20px rgba(255,0,128,0.6);
+}
+
+#yesBtn:hover{
+transform:scale(1.1);
+box-shadow:0 0 35px rgba(255,0,128,1);
+}
+
+#noBtn{
+background:white;
+color:black;
+position:relative;
+}
+
+.funnyText{
+font-size:12px;
+margin-top:15px;
+opacity:0.8;
+}
+
+.heart{
 position:absolute;
-color:#ff4d6d;
-animation: floatUp 5s linear infinite;
+color:#ff4da6;
+animation:floatUp 6s linear infinite;
 }
 
-@keyframes floatUp {
-0% { transform: translateY(100vh); opacity:1;}
-100% { transform: translateY(-10vh); opacity:0;}
-}
-
-@keyframes pulse {
-0%, 100% { opacity:1; transform:scale(1);}
-50% { opacity:0.6; transform:scale(1.1);}
+@keyframes floatUp{
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOCAL SONG -->
-<audio id="music" autoplay loop muted>
+<audio id="music">
 <source src="song.mp3" type="audio/mpeg">
 </audio>
-
-<div id="musicIcon" style="position:fixed;top:20px;right:20px;z-index:1000;font-size:24px;animation:pulse 1.5s infinite;">🎵</div>
 
 <div class="container">
 
@@ -139,8 +166,10 @@ Will you be my Valentine?<br>
 <img src="photo12.jpeg" class="slide">
 </div>
 
+<div class="buttons">
 <button id="yesBtn" onclick="yesClicked()">YESSS 💖</button>
 <button id="noBtn">No 🙄</button>
+</div>
 
 <div class="funnyText">
 *Warning: Saying No may cause permanent Vishal attachment 😌*
@@ -150,135 +179,101 @@ Will you be my Valentine?<br>
 
 <script>
 
-/* Audio autoplay handler */
-let music = document.getElementById("music");
-let musicIcon = document.getElementById("musicIcon");
-let isPlaying = true;
-
-window.addEventListener("load", function(){
-music.muted = false;
-music.play().catch((err)=>{console.log("Playback error:", err);});
-});
-
-document.addEventListener("DOMContentLoaded", function(){
-music.muted = false;
-music.play().catch((err)=>{console.log("Playback error:", err);});
-});
-
-/* Click icon to play/pause */
-musicIcon.addEventListener("click", function(e){
-e.stopPropagation();
-if(music.paused) {
-music.play().then(()=>{
-musicIcon.style.opacity = "1";
-isPlaying = true;
-}).catch((err)=>{console.log("Play error:", err);});
-} else {
-music.pause();
-musicIcon.style.opacity = "0.5";
-isPlaying = false;
+/* Smooth music fade-in */
+window.addEventListener("click",()=>{
+let music=document.getElementById("music");
+music.volume=0;
+music.play();
+let fade=setInterval(()=>{
+if(music.volume<1){
+music.volume+=0.05;
+}else{
+clearInterval(fade);
 }
-});
-
-/* Update icon opacity based on playback state */
-music.addEventListener("play", function(){
-musicIcon.style.opacity = "1";
-isPlaying = true;
-});
-
-music.addEventListener("pause", function(){
-musicIcon.style.opacity = "0.5";
-isPlaying = false;
-});
+},200);
+},{once:true});
 
 /* Slideshow */
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
+let slides=document.querySelectorAll(".slide");
+let index=0;
 
-function showSlides() {
-slides.forEach(slide => slide.style.display="none");
-slideIndex++;
-if(slideIndex > slides.length){ slideIndex = 1 }
-slides[slideIndex-1].style.display="block";
-setTimeout(showSlides, 3000);
+function showSlides(){
+slides.forEach(slide=>slide.style.opacity="0");
+index++;
+if(index>slides.length){index=1}
+slides[index-1].style.opacity="1";
+setTimeout(showSlides,4000);
 }
 showSlides();
 
-/* Floating hearts */
+/* Floating Hearts */
 setInterval(()=>{
-let heart = document.createElement("div");
+let heart=document.createElement("div");
 heart.innerHTML="❤️";
 heart.className="heart";
 heart.style.left=Math.random()*100+"vw";
 heart.style.fontSize=(Math.random()*20+20)+"px";
 document.body.appendChild(heart);
-setTimeout(()=>{heart.remove();},5000);
-},500);
+setTimeout(()=>heart.remove(),6000);
+},700);
 
-/* Running No button */
-const noBtn = document.getElementById("noBtn");
-let escapeCount=0;
+/* Running No Button */
+let noBtn = document.getElementById("noBtn");
+let funnyText = document.querySelector(".funnyText");
+let noCount = 0;
+
+const messages = [
+"Sweet heart 😏 You really thought you had a choice? This is destiny 😂💍",
+"System Crash ❌ 'No' option deleted permanently. Please select YES 😌❤️",
+"Error 404: 'No' button not found 🤭",
+"Nice try 😌 but this love story has only one ending 💖",
+"Even Google couldn’t find the 'No' option 🔍❌",
+"Plot twist: You were always going to say YES 😏✨",
+"Loading... Loading... Oops! Only YES available 💕",
+"Are you testing Vishal’s patience? Bold move 😌🔥",
+"Careful... every 'No' makes Vishal more dramatic 🎭❤️",
+"This button runs faster than your excuses 😂",
+"Nice attempt, but the universe already approved us 💫💖",
+"Mission Failed ❌ Try clicking YES instead 😌",
+"You clicking No? That’s cute 😂💘",
+"Breaking News 📰: Keerthi baby secretly wants to press YES 😏"
+];
 
 noBtn.addEventListener("mouseover",()=>{
-const x = Math.random()*300-150;
-const y = Math.random()*300-150;
-noBtn.style.transform=`translate(${x}px,${y}px)`;
-escapeCount++;
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"%";
+noBtn.style.top=Math.random()*80+"%";
 
-if(escapeCount>5){
-document.querySelector(".funnyText").innerHTML=
-"Keerthanaaa 😏 You really thought you had a choice? This is destiny 😂💍";
-}
+noCount++;
 
-if(escapeCount>10){
-document.querySelector(".funnyText").innerHTML=
-"System Crash ❌ 'No' option deleted permanently. Please select YES 😌❤️";
+if(noCount <= messages.length){
+funnyText.innerHTML = messages[noCount-1];
+}else{
+funnyText.innerHTML = "Okay okay fine... I’ll stop running 😌 Just press YES already ❤️";
 }
 });
 
 /* YES CLICK */
 function yesClicked(){
-confettiExplosion();
-
-setTimeout(()=>{
-const message="I said YESSS Vishal Pawar 😌💖 Officially your Valentine forever ❤️";
-window.location.href="https://wa.me/8553737461?text="+encodeURIComponent(message);
-},2000);
-
 document.body.innerHTML=`
-<div style="display:flex;justify-content:center;align-items:center;height:100vh;text-align:center;">
-<h1 style="font-size:30px;">
+<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:black;color:white;text-align:center;">
+<h1 style="font-size:30px;animation:fadeIn 10s ease forwards;">
 Yay it's a YESSSSSS 😍❤️<br><br>
 Keerthana + Vishal = Forever 💍💖<br><br>
-Date night today at Float, please be ready by 6.30 PM 💖💖💖
+Please dress up today, its a date night<br><br>
+I will pick you at 6.30 PM<br><br>
 </h1>
 </div>`;
+
+/* WhatsApp redirect after 10 seconds */
+setTimeout(function(){
+let phoneNumber = "918553737461"; // <-- PUT YOUR NUMBER HERE
+let message = "Okay Baby😍❤️ I will be your Valentine 💍💖";
+let whatsappURL = "https://wa.me/" + 8553737461 + "?text=" + encodeURIComponent(message);
+window.location.href = whatsappURL;
+},10000);
 }
 
-/* Confetti */
-function confettiExplosion(){
-for(let i=0;i<200;i++){
-let confetti=document.createElement("div");
-confetti.style.position="absolute";
-confetti.style.width="10px";
-confetti.style.height="10px";
-confetti.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
-confetti.style.top="50%";
-confetti.style.left="50%";
-confetti.style.transform="translate(-50%,-50%)";
-confetti.style.borderRadius="50%";
-confetti.style.transition="all 2s ease-out";
-document.body.appendChild(confetti);
-
-setTimeout(()=>{
-confetti.style.top=Math.random()*100+"%";
-confetti.style.left=Math.random()*100+"%";
-confetti.style.opacity=0;
-},10);
-
-setTimeout(()=>confetti.remove(),2000);
-}
-}
 </script>
 
 </body>
