@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Keerthana ❤️ Vishal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+overflow:hidden;
+text-align:center;
+color:white;
+}
+
+.container {
+position:relative;
+z-index:2;
+padding:20px;
+}
+
+h1 {
+font-size:28px;
+margin-top:20px;
+}
+
+.slideshow {
+width:90%;
+max-width:350px;
+margin:20px auto;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+.slideshow img {
+width:100%;
+display:none;
+}
+
+button {
+padding:15px 35px;
+font-size:18px;
+border:none;
+border-radius:50px;
+cursor:pointer;
+margin:10px;
+transition:0.3s;
+}
+
+#yesBtn {
+background:#ff4081;
+color:white;
+}
+
+#noBtn {
+background:#ddd;
+position:absolute;
+color:black;
+}
+
+.funnyText {
+font-size:13px;
+color:white;
+margin-top:10px;
+}
+
+.heart {
+position:absolute;
+color:#ff4d6d;
+animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+0% { transform: translateY(100vh); opacity:1;}
+100% { transform: translateY(-10vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- YOUTUBE SONG STARTING AT 25 SECONDS -->
+<iframe id="music" width="0" height="0"
+src="https://www.youtube.com/embed/62wO9Q8wIJc?start=25&autoplay=1&loop=1&playlist=62wO9Q8wIJc&mute=1"
+frameborder="0" allow="autoplay"></iframe>
+
+<div class="container">
+
+<h1>
+Keerthana ❤️<br>
+Will you be my Valentine?<br>
+- Vishal Pawar 😌
+</h1>
+
+<div class="slideshow">
+<img src="photo1.jpeg" class="slide">
+<img src="photo2.jpeg" class="slide">
+<img src="photo3.jpeg" class="slide">
+<img src="photo4.jpeg" class="slide">
+<img src="photo5.jpeg" class="slide">
+<img src="photo6.jpeg" class="slide">
+<img src="photo7.jpeg" class="slide">
+<img src="photo8.jpeg" class="slide">
+<img src="photo9.jpeg" class="slide">
+<img src="photo10.jpeg" class="slide">
+<img src="photo11.jpeg" class="slide">
+<img src="photo12.jpeg" class="slide">
+</div>
+
+<button id="yesBtn" onclick="yesClicked()">YESSS 💖</button>
+<button id="noBtn">No 🙄</button>
+
+<div class="funnyText">*Warning: Saying No may cause permanent Vishal attachment 😌*</div>
+
+</div>
+
+<script>
+
+// slideshow
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlides() {
+slides.forEach(slide => slide.style.display="none");
+slideIndex++;
+if(slideIndex > slides.length){ slideIndex = 1 }
+slides[slideIndex-1].style.display="block";
+setTimeout(showSlides, 3000);
+}
+showSlides();
+
+// floating hearts
+setInterval(()=>{
+let heart = document.createElement("div");
+heart.innerHTML="❤️";
+heart.className="heart";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+20)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>{heart.remove();},5000);
+},500);
+
+// running No button
+const noBtn = document.getElementById("noBtn");
+let escapeCount=0;
+
+noBtn.addEventListener("mouseover",()=>{
+const x = Math.random()*300-150;
+const y = Math.random()*300-150;
+noBtn.style.transform=`translate(${x}px,${y}px)`;
+escapeCount++;
+
+if(escapeCount>5){
+document.querySelector(".funnyText").innerHTML=
+"Keerthanaaa 😏 You really thought you had a choice? This is destiny + Vishal’s planning 😂💍";
+}
+
+if(escapeCount>10){
+document.querySelector(".funnyText").innerHTML=
+"System Crash ❌ 'No' option deleted permanently. Please select YES 😌❤️";
+}
+});
+
+// YES CLICK
+function yesClicked(){
+
+// unmute music
+document.getElementById("music").src =
+"https://www.youtube.com/embed/62wO9Q8wIJc?start=25&autoplay=1&loop=1&playlist=62wO9Q8wIJc";
+
+confettiExplosion();
+
+setTimeout(()=>{
+const phone="YOUR_PHONE_NUMBER";
+const message="I said YESSS Vishal Pawar 😌💖 Officially your Valentine forever ❤️";
+window.location.href="https://wa.me/"+8553737461+"?text="+encodeURIComponent(message);
+},2000);
+
+document.body.innerHTML=`
+<div style="display:flex;justify-content:center;align-items:center;height:100vh;text-align:center;">
+<h1 style="font-size:30px;">
+She Said YESSSSSS 😍❤️<br><br>
+Keerthana + Vishal = Forever 💍💖
+</h1>
+</div>`;
+}
+
+// confetti
+function confettiExplosion(){
+for(let i=0;i<200;i++){
+let confetti=document.createElement("div");
+confetti.style.position="absolute";
+confetti.style.width="10px";
+confetti.style.height="10px";
+confetti.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+confetti.style.top="50%";
+confetti.style.left="50%";
+confetti.style.transform=`translate(-50%,-50%)`;
+confetti.style.borderRadius="50%";
+confetti.style.transition="all 2s ease-out";
+
+document.body.appendChild(confetti);
+
+setTimeout(()=>{
+confetti.style.top=Math.random()*100+"%";
+confetti.style.left=Math.random()*100+"%";
+confetti.style.opacity=0;
+},10);
+
+setTimeout(()=>confetti.remove(),2000);
+}
+}
+</script>
+
+</body>
+</html>
